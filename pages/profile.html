@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Profile | Mabisa Ya</title>
+    <link rel="stylesheet" href="../src/css/style.css">
+</head>
+
+<body>
+
+    <div class="navbar">
+        <a href="../index.html" class="logo">Mabisa Ya</a>
+        <div>
+            <a href="../index.html">Feed</a>
+            <a href="about.html">About</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="card" id="user-info"></div>
+
+        <h4 style="color:#78716c; margin-bottom:10px;">imong mga Post</h4>
+        <div id="my-posts"></div>
+    </div>
+
+    <script src="../src/js/main.js"></script>
+    <script>
+        const user = getCurrentUser();
+        const info = document.getElementById("user-info");
+        const myPostsDiv = document.getElementById("my-posts");
+
+        if (!user) {
+            info.innerHTML = `
+        <h3 style="margin-top:0;">Not logged in</h3>
+        <p>Please log in to view your profile.</p>
+        <button onclick="window.location.href='login.html'">Go to Login</button>
+      `;
+        } else {
+            info.innerHTML = `
+        <h2 style="margin-top:0;">@${user.username}</h2>
+        <p style="color:#78716c; font-size:0.9rem;">Yes.</p>
+        <button class="btn-secondary" onclick="logout()">Log Out</button>
+      `;
+
+            const myPosts = getPosts().filter(p => p.author === user.username);
+            if (myPosts.length === 0) {
+                myPostsDiv.innerHTML = "<p style='color:#a8a29e;'>alaws.</p>";
+            } else {
+                myPosts.forEach(post => {
+                    myPostsDiv.innerHTML += `
+            <div class="post">
+              <div class="post-meta">${post.time}</div>
+              <div>${post.text}</div>
+            </div>
+          `;
+                });
+            }
+        }
+    </script>
+</body>
+
+</html>
