@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Feed | Mabisa Ya</title>
+    <link rel="stylesheet" href="src/css/style.css">
+</head>
+
+<body>
+
+    <div class="navbar">
+        <a href="index.html" class="logo"> Mabisa Ya</a>
+        <div>
+            <a href="index.html">Feed</a>
+            <a href="pages/profile.html">Profile</a>
+            <a href="pages/about.html">About</a>
+            <span id="auth-links"></span>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="card">
+            <h3 style="margin-top:0;">Unsay problem nimo bay?</h3>
+            <textarea id="post-text" placeholder="Basig mastoryahan nato na ba"></textarea>
+            <button onclick="addPost()">Post</button>
+        </div>
+
+        <h4 style="color:#78716c; margin-bottom:10px;">Recent Posts</h4>
+        <div id="feed"></div>
+    </div>
+
+    <script src="src/js/main.js"></script>
+    <script>
+        displayFeed();
+
+        const user = getCurrentUser();
+        const authLinks = document.getElementById("auth-links");
+        if (user) {
+            authLinks.innerHTML = `<a href="#" onclick="logout()">Logout (${user.username})</a>`;
+        } else {
+            authLinks.innerHTML = `<a href="pages/login.html">Login</a>`;
+        }
+    </script>
+</body>
+
+</html>
